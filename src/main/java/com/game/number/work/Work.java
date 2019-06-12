@@ -106,6 +106,10 @@ public class Work {
         if (i < data.length && j + 1 < data[i].length && direction != DIRECTION_RIGHT) {
             if (temp == data[i][j + 1] && temp == data[i][j]) {
                 String key1 = i + DECOLLATOR + (j + 1);
+                boolean existed = m.containsKey(key) && m.containsKey(key1);
+                if (existed) {
+                    return;
+                }
                 putMap(key, key1, m);
                 findMaxList(data, i, j + 1, temp, DIRECTION_LEFT, m);
             }
@@ -115,6 +119,10 @@ public class Work {
         if (i < data.length && j - 1 >= 0 && direction != DIRECTION_LEFT) {
             if (temp == data[i][j - 1] && temp == data[i][j]) {
                 String key1 = i + DECOLLATOR + (j - 1);
+                boolean existed = m.containsKey(key) && m.containsKey(key1);
+                if (existed) {
+                    return;
+                }
                 putMap(key, key1, m);
                 findMaxList(data, i, j - 1, temp, DIRECTION_RIGHT, m);
             }
@@ -124,6 +132,10 @@ public class Work {
         if (i + 1 < data.length && direction != DIRECTION_UP) {
             if (temp == data[i + 1][j] && temp == data[i][j]) {
                 String key1 = (i + 1) + DECOLLATOR + j;
+                boolean existed = m.containsKey(key) && m.containsKey(key1);
+                if (existed) {
+                    return;
+                }
                 putMap(key, key1, m);
                 findMaxList(data, i + 1, j, temp, DIRECTION_DOWN, m);
             }
@@ -132,6 +144,10 @@ public class Work {
         if (i - 1 > 0 && direction != DIRECTION_DOWN) {
             if (temp == data[i - 1][j] && temp == data[i][j]) {
                 String key1 = (i - 1) + DECOLLATOR + j;
+                boolean existed = m.containsKey(key) && m.containsKey(key1);
+                if (existed) {
+                    return;
+                }
                 putMap(key, key1, m);
                 findMaxList(data, i - 1, j, temp, DIRECTION_UP, m);
             }
@@ -139,10 +155,7 @@ public class Work {
     }
 
     private static void putMap(String key, String key1, Map<String, Integer> m) {
-        boolean existed = m.containsKey(key) && m.containsKey(key1);
-        if (existed) {
-            return;
-        }
+
         m.put(key, m.containsKey(key) ? m.get(key) + 1 : 0);
         m.put(key1, m.containsKey(key1) ? m.get(key1) + 2 : 2);
     }
